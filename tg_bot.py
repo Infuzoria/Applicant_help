@@ -141,6 +141,16 @@ def check_by_number(message):
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    # Добавление клавиатуры с кнопками
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("🪪 Добавить СНИЛС")
+    btn2 = types.KeyboardButton("🔗 Добавить ссылку")
+    btn3 = types.KeyboardButton("💻 Просмотр всех ссылок")
+    btn4 = types.KeyboardButton("📑 Посмотреть список")
+    btn5 = types.KeyboardButton("📍 Проверить позицию")
+    btn6 = types.KeyboardButton("🔎 Поиск по номеру")
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
+
     # Описание команды start
     if (message.text == '/start'):
         if (not BotDB.user_exists(user, message.from_user.id)):
