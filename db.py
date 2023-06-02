@@ -51,3 +51,28 @@ class BotDB:
         """
         self.cursor.execute("INSERT INTO 'users' ('user_id') VALUES (?)", (user_id,))
         return self.conn.commit()
+
+    def add_record(self, user_id, value):
+        """
+        Добавляем ссылку на новый вуз
+        """
+        self.cursor.execute("INSERT INTO 'records' ('users_id', 'value') VALUES (?, ?)", (user_id, value))
+        return self.conn.commit()
+
+    def get_records(self, user_id):
+        """
+        Получение всех записей
+        """
+        result = self.cursor.execute("SELECT * FROM 'records'")
+        list_of_url = []
+        for i in result.fetchall():
+            if i[1] == user_id:
+                list_of_url.append(i[2])
+        return list_of_url
+
+    def count_of_records(self, user_id):
+        """
+        Получение количества добавленных ссылок
+        """
+        result = self.cursor.execute("SELECT * FROM 'records'")
+        return len(result.fetchall())
